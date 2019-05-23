@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchUser} from '../actions';
+// import {fetchUser} from '../actions';
 
 class UserHeader extends React.Component {
-    componentDidMount() {
-        this.props.fetchUser(this.props.userId);
-    }
+    // componentDidMount() {
+    //     this.props.fetchUser(this.props.userId);
+    // }
     render() {
-        const user = this.props.users.find((user) => user.id === this.props.userId);
+        const {user} = this.props;
         if (!user) {
             return null;
         }
@@ -15,11 +15,11 @@ class UserHeader extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+// ownprops is a copy of state that 's going to be sent up to UserHeader
+const mapStateToProps = (state, ownProps) => {
     return {
-        users: state.users,
+        user: state.users.find(user => user.id === ownProps.userId),
     };
 };
 
-export default connect(mapStateToProps, 
-    {fetchUser: fetchUser})(UserHeader);
+export default connect(mapStateToProps)(UserHeader);
